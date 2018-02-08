@@ -5,5 +5,6 @@
   apt:
     pkg: update-notifier-common
     state: present
+    force_apt_get: yes
   ignore_errors: true
 

@@ -10,12 +10,14 @@
   apt:
     pkg: unattended-upgrades
     state: present
+    force_apt_get: yes
 
 - name: install reboot dependencies
   include: reboot.yml
   when: unattended_automatic_reboot
 
 - name: create APT auto-upgrades configuration
+  become: yes
   template:
     src: auto-upgrades.j2
     dest: /etc/apt/apt.conf.d/20auto-upgrades
@@ -24,9 +26,10 @@
     mode: 0644
 
 - name: create unattended-upgrades configuration
+  become: yes
   template:
     src: unattended-upgrades.j2
-    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    dest: /etc/apt/apt.conf.d/51unattended-upgrades
     owner: root
     group: root
     mode: 0644
